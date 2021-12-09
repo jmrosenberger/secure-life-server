@@ -1,0 +1,42 @@
+[
+    {
+        "model": "securelifeapi.city",
+        "pk": 1,
+        "fields": {
+            "name": "Chattanooga",
+            "state": 1
+        }
+    },
+    {
+        "model": "securelifeapi.city",
+        "pk": 2,
+        "fields": {
+            "name": "Nashville",
+            "state": 1
+        }
+    },
+    {
+        "model": "securelifeapi.city",
+        "pk": 3,
+        "fields": {
+            "name": "Conneaut Lake",
+            "state": 2
+        }
+    },
+    {
+        "model": "securelifeapi.city",
+        "pk": 4,
+        "fields": {
+            "name": "Kanab",
+            "state": 3
+        }
+    },
+    {
+        "model": "securelifeapi.city",
+        "pk": 5,
+        "fields": {
+            "name": "Destin",
+            "state": 4
+        }
+    }
+]

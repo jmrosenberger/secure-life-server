@@ -1,0 +1,42 @@
+[
+    {
+        "model": "securelifeapi.adventure",
+        "pk": 1,
+        "fields": {
+            "title": "2020 Trip Out West",
+            "human": [
+                {
+                    "user": 1,
+                    "name": "Josh"
+                },
+                {
+                    "user": 2,
+                    "name": "Angel"
+                }
+            ],
+            "date": "March 2, 2020",
+            "description": "Our trip out west lasted 5 days, and was spent at the Grand Canyon, Bryce Canyon, and Zion National Park.",
+            "image": "www.not_a_real_image.com"
+        }
+    },
+    {
+        "model": "securelifeapi.adventure",
+        "pk": 2,
+        "fields": {
+            "title": "2021 Family Trip to Florida",
+            "human": [
+                {
+                    "user": 1,
+                    "name": "Josh"
+                },
+                {
+                    "user": 2,
+                    "name": "Angel"
+                }
+            ],
+            "date": "May 23, 2021",
+            "description": "Took a trip to Destin, Fl with my parents. Spent 4 days there, kayaking to the natural springs was the best part.",
+            "image": "www.not_a_real_image.com"
+        }
+    }
+]

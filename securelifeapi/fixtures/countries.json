@@ -1,0 +1,9 @@
+[
+    {
+        "model": "securelifeapi.country",
+        "pk": 1,
+        "fields": {
+            "name": "United States"
+        }
+    }
+]
