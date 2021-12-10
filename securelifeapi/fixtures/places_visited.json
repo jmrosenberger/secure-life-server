@@ -1,0 +1,34 @@
+[
+    {
+        "model": "securelifeapi.placesvisited",
+        "pk": 1,
+        "fields": {
+            "adventure": 1,
+            "location": 1
+        }
+    },
+    {
+        "model": "securelifeapi.placesvisited",
+        "pk": 2,
+        "fields": {
+            "adventure": 1,
+            "location": 2
+        }
+    },
+    {
+        "model": "securelifeapi.placesvisited",
+        "pk": 3,
+        "fields": {
+            "adventure": 1,
+            "location": 3
+        }
+    },
+    {
+        "model": "securelifeapi.placesvisited",
+        "pk": 4,
+        "fields": {
+            "adventure": 2,
+            "location": 4
+        }
+    }
+]

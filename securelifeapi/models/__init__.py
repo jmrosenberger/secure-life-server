@@ -9,3 +9,4 @@ from .human_progess import HumanProgress
 from .image import Image
 from .journal_entry import JournalEntry
 from .location import Location
+from .places_visited import PlacesVisited

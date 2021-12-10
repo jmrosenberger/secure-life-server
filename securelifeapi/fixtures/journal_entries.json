@@ -1,0 +1,12 @@
+[
+    {
+        "model": "securelifeapi.journalentry",
+        "pk": 1,
+        "fields": {
+            "human": 1,
+            "date": "11-21-2021",
+            "image": null,
+            "entry": "Test text"
+        }
+    }
+]

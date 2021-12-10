@@ -1,0 +1,11 @@
+[
+    {
+        "model": "securelifeapi.image",
+        "pk": 1,
+        "fields": {
+            "tag": 1,
+            "image_url": "www.somethingfake.com",
+            "date": "2021-11-27"
+        }
+    }
+]
