@@ -1,5 +1,13 @@
 [
     {
-        "model": "securelifeapi.humanprogress"
+        "model": "securelifeapi.humanprogress",
+        "pk": 1,
+        "fields": {
+            "human": 1,
+            "height": 74,
+            "weight": 285,
+            "length": 0,
+            "date": "2021-11-27"
+        }
     }
 ]

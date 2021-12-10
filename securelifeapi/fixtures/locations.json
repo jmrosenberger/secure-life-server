@@ -1,0 +1,34 @@
+[
+    {
+        "model": "securelifeapi.location",
+        "pk": 1,
+        "fields": {
+            "city": 1,
+            "park": 3
+        }
+    },
+    {
+        "model": "securelifeapi.location",
+        "pk": 2,
+        "fields": {
+            "city": 1,
+            "park": 1
+        }
+    },
+    {
+        "model": "securelifeapi.location",
+        "pk": 3,
+        "fields": {
+            "city": 1,
+            "park": 2
+        }
+    },
+    {
+        "model": "securelifeapi.location",
+        "pk": 4,
+        "fields": {
+            "city": 5,
+            "park": 1
+        }
+    }
+]

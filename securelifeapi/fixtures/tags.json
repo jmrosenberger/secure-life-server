@@ -1,0 +1,23 @@
+[
+    {
+        "model": "securelifeapi.tag",
+        "pk": 1,
+        "fields": {
+            "name": "josh"
+        }
+    },
+    {
+        "model": "securelifeapi.tag",
+        "pk": 2,
+        "fields": {
+            "name": "angel"
+        }
+    },
+    {
+        "model": "securelifeapi.tag",
+        "pk": 3,
+        "fields": {
+            "name": "katie"
+        }
+    }
+]

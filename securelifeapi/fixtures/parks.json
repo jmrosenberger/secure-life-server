@@ -1,0 +1,26 @@
+[
+    {
+        "model": "securelifeapi.park",
+        "pk": 1,
+        "fields": {
+            "name": "Zion National Park",
+            "state": 3
+        }
+    },
+    {
+        "model": "securelifeapi.park",
+        "pk": 2,
+        "fields": {
+            "name": "Bryce Canyon National Park",
+            "state": 3
+        }
+    },
+    {
+        "model": "securelifeapi.park",
+        "pk": 3,
+        "fields": {
+            "name": "Grand Canyon National Park",
+            "state": 5
+        }
+    }
+]
