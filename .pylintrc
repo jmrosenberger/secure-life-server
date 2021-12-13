@@ -2,7 +2,8 @@
   good-names=i,j,ex,pk
 
 [MESSAGES CONTROL]
-  disable=broad-except,imported-auth-user,missing-class-docstring,no-self-use,abstract-method
+  ; disable=broad-except,imported-auth-user,missing-class-docstring,no-self-use,abstract-method
+  disable=broad-except, imported-auth-user
 
 [MASTER]
   disable=C0114,
