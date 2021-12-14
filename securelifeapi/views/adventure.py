@@ -6,7 +6,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from securelifeapi.models import Adventure, Human, Image, PlacesVisited, Location, Park, City, State, Country, Tag
-
+from django.contrib.auth import get_user_model
 
 class AdventureView(ViewSet):
     """SecureLife"""
@@ -21,7 +21,7 @@ class AdventureView(ViewSet):
         # Uses the token passed in the `Authorization` header
         human = Human.objects.get(user=request.auth.user)
         
-        image = Image.objects.get(pk=request.data["imageId"])
+        # image = Image.objects.get(pk=request.data["imageId"])
 
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -40,7 +40,7 @@ class AdventureView(ViewSet):
                 human=human,
                 date=request.data["date"],
                 description=request.data["description"],
-                image=image
+                # image=image
             )
             serializer = AdventureSerializer(adventure, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -79,7 +79,7 @@ class AdventureView(ViewSet):
         """
         human = Human.objects.get(user=request.auth.user)
         
-        image = Image.objects.get(pk=request.data["imageId"])
+        # image = Image.objects.get(pk=request.data["imageId"])
 
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Game, get the game record
@@ -89,7 +89,7 @@ class AdventureView(ViewSet):
         adventure.human = human
         adventure.date = request.data["date"]
         adventure.description = request.data["description"]
-        adventure.image = image
+        # adventure.image = image
         adventure.save()
 
         # 204 status code means everything worked but the
@@ -147,5 +147,5 @@ class AdventureSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Adventure
-        fields = ('id', 'title', 'human_id', 'date', 'description', 'image_id')
+        fields = ('id', 'title', 'human_id', 'date', 'description')
         depth = 1
