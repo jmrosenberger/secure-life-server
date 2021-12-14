@@ -1,12 +1,12 @@
 """View module for handling requests about games"""
 from django.core.exceptions import ValidationError
 from rest_framework import status
-from django.http import HttpResponseServerError
+# from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Adventure, Human, Image, PlacesVisited, Location, Park, City, State, Country, Tag
-from django.contrib.auth import get_user_model
+from securelifeapi.models import Adventure, Human
+# from django.contrib.auth import get_user_model
 
 class AdventureView(ViewSet):
     """SecureLife"""
@@ -19,10 +19,8 @@ class AdventureView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        human = Human.objects.get(user=request.auth.user)
-        
+        humans = Human.objects.filter(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
-
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
         # `gameTypeId` in the body of the request.
@@ -37,11 +35,11 @@ class AdventureView(ViewSet):
             # body of the request from the client.
             adventure = Adventure.objects.create(
                 title=request.data["title"],
-                human=human,
                 date=request.data["date"],
                 description=request.data["description"],
                 # image=image
             )
+            adventure.participants.set(humans)
             serializer = AdventureSerializer(adventure, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -77,8 +75,7 @@ class AdventureView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        human = Human.objects.get(user=request.auth.user)
-        
+        # human = Human.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
 
         # Do mostly the same thing as POST, but instead of
@@ -86,7 +83,6 @@ class AdventureView(ViewSet):
         # from the database whose primary key is `pk`
         adventure = Adventure.objects.get(pk=pk)
         adventure.title = request.data["title"]
-        adventure.human = human
         adventure.date = request.data["date"]
         adventure.description = request.data["description"]
         # adventure.image = image
@@ -121,7 +117,7 @@ class AdventureView(ViewSet):
             Response -- JSON serialized list of adventures
         """
         # Get all adventure records from the database
-        human = Human.objects.get(user=request.auth.user)
+        # human = Human.objects.get(user=request.auth.user)
         # adventure = Adventure.objects.annotate(event_count=Count('events'))
 
 
@@ -147,5 +143,5 @@ class AdventureSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Adventure
-        fields = ('id', 'title', 'human', 'date', 'description')
+        fields = ('id', 'title', 'participants', 'date', 'description')
         depth = 1
