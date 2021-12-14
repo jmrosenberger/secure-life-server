@@ -3,8 +3,49 @@
         "model": "securelifeapi.human",
         "pk": 1,
         "fields": {
-            "user": 1,
             "name": "Josh"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 2,
+        "fields": {
+            "name": "Angel"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 3,
+        "fields": {
+            "name": "Katie"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 4,
+        "fields": {
+            "name": "Seth"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 5,
+        "fields": {
+            "name": "Hannah"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 6,
+        "fields": {
+            "name": "Rich (Poppers)"
+        }
+    },
+    {
+        "model": "securelifeapi.human",
+        "pk": 7,
+        "fields": {
+            "name": "Tammy (Grammy)"
         }
     }
 ]

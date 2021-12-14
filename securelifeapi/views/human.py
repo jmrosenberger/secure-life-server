@@ -5,21 +5,22 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Location
+from securelifeapi.models import Human
+# from django.contrib.auth import get_user_model
 
-class LocationView(ViewSet):
+class HumanView(ViewSet):
     """SecureLife"""
 
     def create(self, request):
         """Handle POST operations
 
         Returns:
-            Response -- JSON serialized location instance
+            Response -- JSON serialized game instance
         """
 
         # Uses the token passed in the `Authorization` header
         # human = Human.objects.get(user=request.auth.user)
-        # image = Image.objects.get(pk=request.data["imageId"])
+        # # image = Image.objects.get(pk=request.data["imageId"])
 
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -33,11 +34,10 @@ class LocationView(ViewSet):
             # Create a new Python instance of the Adventure class
             # and set its properties from what was sent in the
             # body of the request from the client.
-            location = Location.objects.create(
-                city=request.data["city"],
-                park=request.data["park"]
+            human = Human.objects.create(
+                name=request.data["name"]
             )
-            serializer = LocationSerializer(location, context={'request': request})
+            serializer = HumanSerializer(human, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         # If anything went wrong, catch the exception and
@@ -49,10 +49,10 @@ class LocationView(ViewSet):
 
 
     def retrieve(self, request, pk):
-        """Handle GET requests for single location
+        """Handle GET requests for single human
 
         Returns:
-            Response -- JSON serialized location instance
+            Response -- JSON serialized human instance
         """
         try:
             # `pk` is a parameter to this function, and
@@ -60,14 +60,14 @@ class LocationView(ViewSet):
             #   http://localhost:8000/games/2
             #
             # The `2` at the end of the route becomes `pk`
-            location = Location.objects.get(pk=pk)
-            serializer = LocationSerializer(location, context={'request': request})
+            human = Human.objects.get(pk=pk)
+            serializer = HumanSerializer(human, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):
-        """Handle PUT requests for a location
+        """Handle PUT requests for a human
 
         Returns:
             Response -- Empty body with 204 status code
@@ -75,66 +75,66 @@ class LocationView(ViewSet):
         # human = Human.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         # Do mostly the same thing as POST, but instead of
-        # creating a new instance of location, get the location record
+        # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
-        location = Location.objects.get(pk=pk)
-        location.city = request.data["city"]
-        location.park = request.data["park"]
-        location.save()
+        human = Human.objects.get(pk=pk)
+        human.name = request.data["name"]
+        human.save()
 
         # 204 status code means everything worked but the
         # server is not sending back any data in the response
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk=None):
-        """Handle DELETE requests for a single location
+        """Handle DELETE requests for a single human
 
         Returns:
             Response -- 200, 404, or 500 status code
         """
         try:
-            location = Location.objects.get(pk=pk)
-            location.delete()
+            human = Human.objects.get(pk=pk)
+            human.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except Location.DoesNotExist as ex:
+        except Human.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def list(self, request):
-        """Handle GET requests to location resource
+        """Handle GET requests to human resource
 
         Returns:
-            Response -- JSON serialized list of locations
+            Response -- JSON serialized list of humans
         """
-        # Get all location records from the database
+        # Get all adventure records from the database
         # human = Human.objects.get(user=request.auth.user)
+        # adventure = Adventure.objects.annotate(event_count=Count('events'))
 
 
-        # Support filtering locations by type
+        # Support filtering games by type
         #    http://localhost:8000/games?type=1
         #
         # That URL will retrieve all tabletop games
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        location = Location.objects.all()
+        human = Human.objects.all()
 
-        serializer = LocationSerializer(
-            location, many=True, context={'request': request})
+        serializer = HumanSerializer(
+            human, many=True, context={'request': request})
         return Response(serializer.data)
 
 
-class LocationSerializer(serializers.ModelSerializer):
-    """JSON serializer for locations
+class HumanSerializer(serializers.ModelSerializer):
+    """JSON serializer for humans
 
     Arguments:
         serializer type
     """
     class Meta:
-        model = Location
-        fields = ('id', 'city', 'park')
+        model = Human
+        fields = ('id', 'name')
         depth = 1

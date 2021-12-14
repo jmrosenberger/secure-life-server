@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from securelifeapi.views.auth import register_user, login_user
 from rest_framework import routers
+from securelifeapi.views.auth import register_user, login_user
 # from securelifeapi.views.profile import user_profile
 from securelifeapi.views.adventure import AdventureView
 from securelifeapi.views.location import LocationView
