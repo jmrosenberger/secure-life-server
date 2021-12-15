@@ -1,8 +1,8 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
+# from django.db.models.deletion import CASCADE
 
-class HumanProgress(models.Model):
-    human = models.ForeignKey("Human", related_name='human_progress', on_delete=models.CASCADE)
+class Growth(models.Model):
+    human = models.ForeignKey("Human", related_name='growth', on_delete=models.CASCADE)
     height = models.IntegerField()
     weight = models.IntegerField()
     length = models.IntegerField()

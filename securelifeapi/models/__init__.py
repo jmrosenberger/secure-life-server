@@ -5,7 +5,7 @@ from .human import Human
 from .park import Park
 from .state import State
 from .tag import Tag
-from .human_progess import HumanProgress
+from .growth import Growth
 from .image import Image
 from .journal_entry import JournalEntry
 from .location import Location

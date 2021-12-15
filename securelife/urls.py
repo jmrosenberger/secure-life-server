@@ -22,11 +22,13 @@ from securelifeapi.views.auth import register_user, login_user
 from securelifeapi.views.adventure import AdventureView
 from securelifeapi.views.human import HumanView
 from securelifeapi.views.location import LocationView
+from securelifeapi.views.growth import GrowthView
 
 router =routers.DefaultRouter(trailing_slash=False)
 router.register(r'adventures', AdventureView, 'adventure')
 router.register(r'locations', LocationView, 'location')
-# router.register(r'humans', HumanView, 'human')
+router.register(r'growth', GrowthView, 'growth')
+router.register(r'humans', HumanView, 'human')
 
 urlpatterns = [
     path('', include(router.urls)),
