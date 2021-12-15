@@ -136,5 +136,5 @@ class LocationSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Location
-        fields = ('id', 'city', 'park')
+        fields = ('id', 'city', 'park', 'is_visited')
         depth = 1

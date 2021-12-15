@@ -1,3 +1,2 @@
 SELECT * 
-FROM securelifeapi_adventure as a
-WHERE a.id = 1
+FROM securelifeapi_human as h

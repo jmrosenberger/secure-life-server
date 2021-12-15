@@ -8,6 +8,7 @@ from rest_framework import serializers
 from securelifeapi.models import Adventure, Human
 # from django.contrib.auth import get_user_model
 
+
 class AdventureView(ViewSet):
     """SecureLife"""
 
@@ -19,7 +20,7 @@ class AdventureView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        humans = Human.objects.filter(user=request.auth.user)
+        human = Human.objects.filter(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -39,8 +40,9 @@ class AdventureView(ViewSet):
                 description=request.data["description"],
                 # image=image
             )
-            adventure.participants.set(humans)
-            serializer = AdventureSerializer(adventure, context={'request': request})
+            adventure.participants.set(human)
+            serializer = AdventureSerializer(
+                adventure, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         # If anything went wrong, catch the exception and
@@ -48,8 +50,6 @@ class AdventureView(ViewSet):
         # client that something was wrong with its request data
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
-
-
 
     def retrieve(self, request, pk):
         """Handle GET requests for single adventure
@@ -64,7 +64,8 @@ class AdventureView(ViewSet):
             #
             # The `2` at the end of the route becomes `pk`
             adventure = Adventure.objects.get(pk=pk)
-            serializer = AdventureSerializer(adventure, context={'request': request})
+            serializer = AdventureSerializer(
+                adventure, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -120,7 +121,6 @@ class AdventureView(ViewSet):
         # human = Human.objects.get(user=request.auth.user)
         # adventure = Adventure.objects.annotate(event_count=Count('events'))
 
-
         # Support filtering games by type
         #    http://localhost:8000/games?type=1
         #
@@ -134,6 +134,12 @@ class AdventureView(ViewSet):
             adventure, many=True, context={'request': request})
         return Response(serializer.data)
 
+class HumanSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Human
+        fields = ['name']
+
 
 class AdventureSerializer(serializers.ModelSerializer):
     """JSON serializer for games
@@ -141,6 +147,8 @@ class AdventureSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
+    participants = HumanSerializer(many=True)
+
     class Meta:
         model = Adventure
         fields = ('id', 'title', 'participants', 'date', 'description')
