@@ -1,6 +1,6 @@
 [
     {
-        "model": "securelifeapi.humanprogress",
+        "model": "securelifeapi.growth",
         "pk": 1,
         "fields": {
             "human": 1,
