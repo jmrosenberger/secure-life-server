@@ -3,9 +3,16 @@
         "model": "securelifeapi.image",
         "pk": 1,
         "fields": {
-            "tag": 1,
-            "image_url": "www.somethingfake.com",
-            "date": "2021-11-27"
+            "adventure": 1,
+            "action_pic": ""
+        }
+    },
+    {
+        "model": "securelifeapi.image",
+        "pk": 2,
+        "fields": {
+            "adventure": 1,
+            "action_pic": ""
         }
     }
 ]
