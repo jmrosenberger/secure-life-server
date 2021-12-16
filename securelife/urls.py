@@ -23,12 +23,16 @@ from securelifeapi.views.adventure import AdventureView
 from securelifeapi.views.human import HumanView
 from securelifeapi.views.location import LocationView
 from securelifeapi.views.growth import GrowthView
+from securelifeapi.views.image import ImageView
+from django.conf.urls.static import static
+from django.conf import settings
 
 router =routers.DefaultRouter(trailing_slash=False)
 router.register(r'adventures', AdventureView, 'adventure')
 router.register(r'locations', LocationView, 'location')
 router.register(r'growth', GrowthView, 'growth')
 router.register(r'humans', HumanView, 'human')
+router.register(r'images', ImageView, 'image')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -37,4 +41,4 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     # path('profile', user_profile)
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
