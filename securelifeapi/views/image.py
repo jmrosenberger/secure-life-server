@@ -26,8 +26,8 @@ class ImageView(ViewSet):
         ext = format.split('/')[-1]
         data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["adventure_id"]}-{uuid.uuid4()}.{ext}')
         
-        adventure_image.action_pic = data
         adventure_image.adventure = adventure
+        adventure_image.action_pic = data
         # adventure_image.human = human
         adventure_image.save()
         
