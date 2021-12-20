@@ -36,6 +36,7 @@ class GrowthView(ViewSet):
             # body of the request from the client.
             growth = Growth.objects.create(
                 human=human,
+                age=request.data["age"],
                 height=request.data["height"],
                 weight=request.data["weight"],
                 length=request.data["length"],
@@ -87,6 +88,7 @@ class GrowthView(ViewSet):
         # from the database whose primary key is `pk`
         growth = Growth.objects.get(pk=pk)
         growth.human = human
+        growth.age=request.data["age"]
         growth.height=request.data["height"]
         growth.weight=request.data["weight"]
         growth.length=request.data["length"]
@@ -155,5 +157,5 @@ class GrowthSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Growth
-        fields = ('id', 'human', 'height', 'weight', 'length', 'date', 'notes')
+        fields = ('id', 'human', 'age', 'height', 'weight', 'length', 'date', 'notes')
         depth = 1
