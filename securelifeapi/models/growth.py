@@ -3,6 +3,7 @@ from django.db import models
 
 class Growth(models.Model):
     human = models.ForeignKey("Human", related_name='growth', on_delete=models.CASCADE)
+    age=models.IntegerField()
     height = models.IntegerField()
     weight = models.IntegerField()
     length = models.IntegerField()
