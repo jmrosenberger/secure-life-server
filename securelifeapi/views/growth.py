@@ -39,7 +39,8 @@ class GrowthView(ViewSet):
                 height=request.data["height"],
                 weight=request.data["weight"],
                 length=request.data["length"],
-                date=request.data["date"]
+                date=request.data["date"],
+                notes=request.data["notes"]
             )
             # adventure.participants.set(human)
             serializer = GrowthSerializer(
@@ -89,6 +90,8 @@ class GrowthView(ViewSet):
         growth.height=request.data["height"]
         growth.weight=request.data["weight"]
         growth.length=request.data["length"]
+        growth.date=request.data["date"]
+        growth.notes=request.data["notes"]
         growth.save()
 
         # 204 status code means everything worked but the
@@ -152,5 +155,5 @@ class GrowthSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Growth
-        fields = ('id', 'human', 'height', 'weight', 'length', 'date')
+        fields = ('id', 'human', 'height', 'weight', 'length', 'date', 'notes')
         depth = 1

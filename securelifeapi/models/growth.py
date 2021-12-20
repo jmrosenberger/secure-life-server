@@ -7,3 +7,5 @@ class Growth(models.Model):
     weight = models.IntegerField()
     length = models.IntegerField()
     date = models.DateField(auto_now=False, auto_now_add=False)
+    notes = models.CharField(max_length=500)
+    
