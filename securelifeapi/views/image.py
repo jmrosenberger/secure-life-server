@@ -1,13 +1,12 @@
 """View module for handling requests about pictures"""
+import uuid, base64
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from securelifeapi.models import Image, Human, Adventure
-from django.contrib.auth import get_user_model
-import uuid, base64
 from django.core.files.base import ContentFile
+from securelifeapi.models import Image, Adventure
 
 class ImageView(ViewSet):
     """SecureLife pictures"""
@@ -18,25 +17,18 @@ class ImageView(ViewSet):
             Response -- JSON serialized image instance
         """
 
-        # human = Human.objects.get(user=request.auth.user)
         adventure = Adventure.objects.get(pk = request.data["adventure_id"])
         adventure_image = Image()
-        
         format, imgstr = request.data["action_pic"].split(';base64,')
         ext = format.split('/')[-1]
         data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["adventure_id"]}-{uuid.uuid4()}.{ext}')
-        
         adventure_image.adventure = adventure
         adventure_image.action_pic = data
-        # adventure_image.human = human
         adventure_image.save()
-        
-
         # Try to save the new picture to the database, then
         # serialize the picture instance as JSON, and send the
         # JSON as a response to the client request
         try:
-            
             serializer = ImageSerializer(adventure_image, context={'request': request})
 
             return Response(serializer.data)
@@ -95,9 +87,9 @@ class ImageSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
-    # human = HumanSerializer(many=False)
 
     class Meta:
         model = Image
         fields = ('id', 'adventure', 'action_pic')
         depth = 1
+        
