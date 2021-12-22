@@ -20,7 +20,6 @@ class AdventureView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        human = Human.objects.filter(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -40,7 +39,8 @@ class AdventureView(ViewSet):
                 description=request.data["description"],
                 # image=image
             )
-            adventure.participants.set(human)
+            adventure.participants.set(request.data["participants"])
+            #needs to be the array that is passed in from the front end
             serializer = AdventureSerializer(
                 adventure, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -85,6 +85,7 @@ class AdventureView(ViewSet):
         adventure = Adventure.objects.get(pk=pk)
         adventure.title = request.data["title"]
         adventure.date = request.data["date"]
+        adventure.participants.set(request.data["participants"])
         adventure.description = request.data["description"]
         # adventure.image = image
         adventure.save()
@@ -138,7 +139,7 @@ class HumanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Human
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class AdventureSerializer(serializers.ModelSerializer):

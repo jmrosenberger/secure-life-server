@@ -1,0 +1,34 @@
+[
+    {
+        "model": "securelifeapi.participant",
+        "pk": 1,
+        "fields": {
+            "human": 1,
+            "adventure": 2
+        }
+    },
+    {
+        "model": "securelifeapi.participant",
+        "pk": 2,
+        "fields": {
+            "human": 2,
+            "adventure": 2
+        }
+    },
+    {
+        "model": "securelifeapi.participant",
+        "pk": 3,
+        "fields": {
+            "human": 3,
+            "adventure": 2
+        }
+    },
+    {
+        "model": "securelifeapi.participant",
+        "pk": 4,
+        "fields": {
+            "human": 4,
+            "adventure": 2
+        }
+    }
+]
