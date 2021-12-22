@@ -1,2 +1,2 @@
 SELECT * 
-FROM securelifeapi_human as h
+FROM securelifeapi_image as h

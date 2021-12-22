@@ -1,5 +1,5 @@
 from django.contrib import admin
-from securelifeapi.models import Adventure, City, Country, Growth, Human, Image, JournalEntry, Location, Park, PlacesVisited, State, Tag
+from securelifeapi.models import Adventure, City, Country, Growth, Human, Image, JournalEntry, Location, Park, PlacesVisited, State, Tag, Participant
 from securelifeapi.models.growth_image import GrowthImage
 
 # Register your models here.
@@ -17,3 +17,4 @@ admin.site.register(PlacesVisited)
 admin.site.register(State)
 admin.site.register(Tag)
 admin.site.register(GrowthImage)
+admin.site.register(Participant)
