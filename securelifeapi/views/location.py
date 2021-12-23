@@ -121,7 +121,7 @@ class LocationView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        location = Location.objects.all()
+        location = Location.objects.order_by('-park')
 
         serializer = LocationSerializer(
             location, many=True, context={'request': request})
