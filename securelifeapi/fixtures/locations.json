@@ -3,7 +3,7 @@
         "model": "securelifeapi.location",
         "pk": 1,
         "fields": {
-            "city": "",
+            "city": "Tucson",
             "park": "Grand Canyon National Park"
         }
     },
@@ -11,7 +11,7 @@
         "model": "securelifeapi.location",
         "pk": 2,
         "fields": {
-            "city": "",
+            "city": "Zion",
             "park": "Zion National Park"
         }
     },
@@ -19,7 +19,7 @@
         "model": "securelifeapi.location",
         "pk": 3,
         "fields": {
-            "city": "",
+            "city": "Somewhere",
             "park": "Bryce Canyon National Park"
         }
     },
@@ -27,8 +27,8 @@
         "model": "securelifeapi.location",
         "pk": 4,
         "fields": {
-            "city": "",
-            "park": "Zion National Park"
+            "city": "Destin",
+            "park": "Ocean"
         }
     }
 ]
