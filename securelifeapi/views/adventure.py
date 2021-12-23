@@ -82,13 +82,14 @@ class AdventureView(ViewSet):
             Response -- Empty body with 204 status code
         """
 
+        location = Location.objects.get(pk=request.data['location'])
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
         adventure = Adventure.objects.get(pk=pk)
         adventure.title = request.data["title"]
         adventure.date = request.data["date"]
-        adventure.location = request.data["location"]
+        adventure.location = location
         adventure.participants.set(request.data["participants"])
         adventure.description = request.data["description"]
         adventure.save()
