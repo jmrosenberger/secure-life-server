@@ -133,7 +133,7 @@ class AdventureView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        adventure = Adventure.objects.all()
+        adventure = Adventure.objects.order_by('date')
 
         serializer = AdventureSerializer(
             adventure, many=True, context={'request': request})
