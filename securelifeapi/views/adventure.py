@@ -5,7 +5,8 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Adventure, Human
+from securelifeapi.models import Adventure, Human, Location
+# from securelifeapi.views.location import LocationSerializer
 # from django.contrib.auth import get_user_model
 
 
@@ -25,20 +26,24 @@ class AdventureView(ViewSet):
         # whose `id` is what the client passed as the
         # `gameTypeId` in the body of the request.
         # game_type = GameType.objects.get(pk=request.data["gameTypeId"])
+        location = Location.objects.get(pk=request.data['location'])
 
         # Try to save the new game to the database, then
         # serialize the game instance as JSON, and send the
         # JSON as a response to the client request
         try:
+            # location = Location.objects.get(
+            #     location=request.data["location"])
             # Create a new Python instance of the Adventure class
             # and set its properties from what was sent in the
             # body of the request from the client.
             adventure = Adventure.objects.create(
                 title=request.data["title"],
                 date=request.data["date"],
+                location=location,
                 description=request.data["description"],
-                # image=image
             )
+            # adventure.location.set(request.data["location"])
             adventure.participants.set(request.data["participants"])
             #needs to be the array that is passed in from the front end
             serializer = AdventureSerializer(
@@ -76,8 +81,6 @@ class AdventureView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        # human = Human.objects.get(user=request.auth.user)
-        # image = Image.objects.get(pk=request.data["imageId"])
 
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Game, get the game record
@@ -85,9 +88,9 @@ class AdventureView(ViewSet):
         adventure = Adventure.objects.get(pk=pk)
         adventure.title = request.data["title"]
         adventure.date = request.data["date"]
+        adventure.location = request.data["location"]
         adventure.participants.set(request.data["participants"])
         adventure.description = request.data["description"]
-        # adventure.image = image
         adventure.save()
 
         # 204 status code means everything worked but the
@@ -140,6 +143,12 @@ class HumanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Human
         fields = ['id', 'name']
+        
+class LocationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Location
+        fields = ['id', 'city', 'park']
 
 
 class AdventureSerializer(serializers.ModelSerializer):
@@ -149,8 +158,9 @@ class AdventureSerializer(serializers.ModelSerializer):
         serializer type
     """
     participants = HumanSerializer(many=True)
+    location = LocationSerializer(many=False)
 
     class Meta:
         model = Adventure
-        fields = ('id', 'title', 'participants', 'date', 'description')
+        fields = ('id', 'title', 'location', 'participants', 'date', 'description')
         depth = 1
