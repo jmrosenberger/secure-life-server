@@ -1,3 +1,3 @@
-DELETE 
-FROM securelifeapi_placesvisited as l
-WHERE l.id = 4
+SELECT *
+FROM securelifeapi_growth as g
+WHERE g.human_id = 3
