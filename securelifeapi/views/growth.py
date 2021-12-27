@@ -125,17 +125,14 @@ class GrowthView(ViewSet):
             Response -- JSON serialized list of growths
         """
         # Get all growth records from the database
-        # human = Human.objects.get(user=request.auth.user)
-        # growth = growth.objects.annotate(event_count=Count('events'))
-
-        # Support filtering games by type
-        #    http://localhost:8000/games?type=1
-        #
-        # That URL will retrieve all tabletop games
-        # game_type = self.request.query_params.get('type', None)
-        # if game_type is not None:
-        #     games = games.filter(game_type__id=game_type)
         growth = Growth.objects.all()
+        
+        # Support filtering growth entries by human
+        #   http://localhost:8000/growth?human=1
+        
+        human = self.request.query_params.get('human', None)
+        if human is not None:
+            growth = growth.filter(human__id=human)
 
         serializer = GrowthSerializer(
             growth, many=True, context={'request': request})
