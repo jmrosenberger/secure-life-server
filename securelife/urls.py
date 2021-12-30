@@ -25,6 +25,7 @@ from securelifeapi.views.location import LocationView
 from securelifeapi.views.growth import GrowthView
 from securelifeapi.views.image import ImageView
 from securelifeapi.views.growth_image import GrowthImageView
+from securelifeapi.views.event import EventView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -35,6 +36,7 @@ router.register(r'growth', GrowthView, 'growth')
 router.register(r'humans', HumanView, 'human')
 router.register(r'images', ImageView, 'image')
 router.register(r'growthimages', GrowthImageView, 'growthimage')
+router.register(r'events', EventView, 'event')
 
 urlpatterns = [
     path('', include(router.urls)),

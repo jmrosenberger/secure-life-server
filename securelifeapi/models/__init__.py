@@ -12,3 +12,4 @@ from .location import Location
 from .places_visited import PlacesVisited
 from .participant import Participant
 from .growth_image import GrowthImage
+from .event import Event
