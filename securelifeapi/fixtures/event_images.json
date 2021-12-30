@@ -1,0 +1,18 @@
+[
+    {
+        "model": "securelifeapi.eventimage",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "action_pic": ""
+        }
+    },
+    {
+        "model": "securelifeapi.eventimage",
+        "pk": 2,
+        "fields": {
+            "event": 1,
+            "action_pic": ""
+        }
+    }
+]
