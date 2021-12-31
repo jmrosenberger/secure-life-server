@@ -123,7 +123,7 @@ class HumanView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        human = Human.objects.filter(creator=creator)
+        human = Human.objects.filter(creator=creator).order_by("name")
 
         serializer = HumanSerializer(
             human, many=True, context={'request': request})

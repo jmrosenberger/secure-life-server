@@ -5,12 +5,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from securelifeapi.models import Human
+# from securelifeapi.models import Human
+from securelifeapi.models import Creator
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
-    '''Handles the authentication of a human
+    '''Handles the authentication of a creator
 
     Method arguments:
       request -- The full HTTP request object
@@ -38,7 +39,7 @@ def login_user(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
-    '''Handles the creation of a new human for authentication
+    '''Handles the creation of a new creator for authentication
 
     Method arguments:
       request -- The full HTTP request object
@@ -54,14 +55,14 @@ def register_user(request):
         last_name=request.data['last_name']
     )
 
-    # Now save the extra info in the levelupapi_gamer table
-    human = Human.objects.create(
+    # Now save the extra info in the securelife_creator table
+    creator = Creator.objects.create(
         # bio=request.data['bio'],
         user=new_user
     )
 
     # Use the REST Framework's token generator on the new user account
-    token = Token.objects.create(user=human.user)
+    token = Token.objects.create(user=creator.user)
     # Return the token to the client
     data = { 'token': token.key }
     return Response(data)
