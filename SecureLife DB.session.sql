@@ -1,2 +1,2 @@
 DELETE 
-FROM securelifeapi_growthimage
+FROM securelifeapi_

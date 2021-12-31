@@ -4,7 +4,7 @@ from securelifeapi.models import Creator
 
 
 class UserSerializer (serializers.ModelSerializer):
-    """JSON serializer for locations
+    """JSON serializer for users
 
     Arguments:
         serializer type
@@ -15,7 +15,7 @@ class UserSerializer (serializers.ModelSerializer):
 
 
 class CreatorSerializer (serializers.ModelSerializer):
-    """JSON serializer for locations
+    """JSON serializer for creators
 
     Arguments:
         serializer type

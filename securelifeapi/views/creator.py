@@ -1,11 +1,11 @@
-"""View module for handling requests about game types"""
+"""View module for handling requests about creators"""
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from securelifeapi.models import Creator
 from rest_framework import status
 from securelifeapi.serializers import CreatorSerializer
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
 class CreatorView(ViewSet):
