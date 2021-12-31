@@ -149,7 +149,7 @@ class HumanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Human
-        fields = ['name']
+        fields = ['name', 'birthday', 'age']
 
 class CreatorSerializer(serializers.ModelSerializer):
     """JSON serializer for creator

@@ -36,7 +36,9 @@ class HumanView(ViewSet):
             # body of the request from the client.
             human = Human.objects.create(
                 creator=creator,
-                name=request.data["name"]
+                name=request.data["name"],
+                birthday=request.data["birthday"],
+                age=request.data["age"]
             )
             serializer = HumanSerializer(human, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -81,6 +83,8 @@ class HumanView(ViewSet):
         human = Human.objects.get(pk=pk)
         human.creator = creator
         human.name = request.data["name"]
+        human.birthday = request.data["birthday"]
+        human.age = request.data["age"]
         human.save()
 
         # 204 status code means everything worked but the
@@ -149,5 +153,5 @@ class HumanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Human
-        fields = ('id', 'creator', 'name')
+        fields = ('id', 'creator', 'name', 'birthday', 'age')
         depth = 1

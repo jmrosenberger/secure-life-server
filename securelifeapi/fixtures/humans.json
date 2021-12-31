@@ -4,7 +4,9 @@
         "pk": 1,
         "fields": {
             "creator": 1,
-            "name": "Josh"
+            "name": "Josh",
+            "birthday": "1983-03-30",
+            "age": 38
         }
     },
     {
@@ -12,7 +14,9 @@
         "pk": 2,
         "fields": {
             "creator": 1,
-            "name": "Angel"
+            "name": "Angel",
+            "birthday": "1993-07-08",
+            "age": 28
         }
     },
     {
@@ -20,7 +24,9 @@
         "pk": 3,
         "fields": {
             "creator": 1,
-            "name": "Katie"
+            "name": "Katie",
+            "birthday": "2021-01-14",
+            "age": 1
         }
     },
     {
@@ -28,7 +34,9 @@
         "pk": 4,
         "fields": {
             "creator": 1,
-            "name": "Seth"
+            "name": "Seth",
+            "birthday": "1992-03-12",
+            "age": 29
         }
     },
     {
@@ -36,7 +44,9 @@
         "pk": 5,
         "fields": {
             "creator": 1,
-            "name": "Hannah"
+            "name": "Hannah",
+            "birthday": "1995-07-24",
+            "age": 26
         }
     },
     {
@@ -44,7 +54,9 @@
         "pk": 6,
         "fields": {
             "creator": 1,
-            "name": "Rich (Poppers)"
+            "name": "Rich (Poppers)",
+            "birthday": "1952-11-12",
+            "age": 69
         }
     },
     {
@@ -52,7 +64,9 @@
         "pk": 7,
         "fields": {
             "creator": 1,
-            "name": "Tammy (Grammy)"
+            "name": "Tammy (Grammy)",
+            "birthday": "1958-08-30",
+            "age": 63
         }
     }
 ]
