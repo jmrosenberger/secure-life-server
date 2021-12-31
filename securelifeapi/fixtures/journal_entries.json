@@ -3,9 +3,9 @@
         "model": "securelifeapi.journalentry",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "human": 1,
-            "date": "11-21-2021",
-            "image": null,
+            "date": "2021-11-21",
             "entry": "Test text"
         }
     }

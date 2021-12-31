@@ -3,6 +3,7 @@
         "model": "securelifeapi.tag",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "name": "josh"
         }
     },
@@ -10,6 +11,7 @@
         "model": "securelifeapi.tag",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "name": "angel"
         }
     },
@@ -17,6 +19,7 @@
         "model": "securelifeapi.tag",
         "pk": 3,
         "fields": {
+            "creator": 1,
             "name": "katie"
         }
     }

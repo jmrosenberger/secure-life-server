@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Growth, Human
+from securelifeapi.models import Growth, Human, Creator
 # from django.contrib.auth import get_user_model
 
 
@@ -20,6 +20,7 @@ class GrowthView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
+        creator = Creator.objects.get(user=request.auth.user)
         human = Human.objects.get(pk=request.data['human'])
         # image = Image.objects.get(pk=request.data["imageId"])
         # Use the Django ORM to get the record from the database
@@ -35,6 +36,7 @@ class GrowthView(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             growth = Growth.objects.create(
+                creator=creator,
                 human=human,
                 age=request.data["age"],
                 height=request.data["height"],
@@ -79,7 +81,7 @@ class GrowthView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         human = Human.objects.get(pk=request.data['human']['id'])
 
@@ -87,6 +89,7 @@ class GrowthView(ViewSet):
         # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
         growth = Growth.objects.get(pk=pk)
+        growth.creator = creator
         growth.human = human
         growth.age=request.data["age"]
         growth.height=request.data["height"]
@@ -125,11 +128,10 @@ class GrowthView(ViewSet):
             Response -- JSON serialized list of growths
         """
         # Get all growth records from the database
-        growth = Growth.objects.all()
-        
+        creator = Creator.objects.get(user=request.auth.user)
+        growth = Growth.objects.filter(creator=creator).order_by('date')
         # Support filtering growth entries by human
         #   http://localhost:8000/growth?human=1
-        
         human = self.request.query_params.get('human', None)
         if human is not None:
             growth = growth.filter(human__id=human)
@@ -139,10 +141,26 @@ class GrowthView(ViewSet):
         return Response(serializer.data)
 
 class HumanSerializer(serializers.ModelSerializer):
+    """JSON serializer for human
+
+    Arguments:
+        serializer type
+    """
 
     class Meta:
         model = Human
         fields = ['name']
+
+class CreatorSerializer(serializers.ModelSerializer):
+    """JSON serializer for creator
+
+    Arguments:
+        serializer type
+    """
+
+    class Meta:
+        model = Creator
+        fields = ['id']
 
 
 class GrowthSerializer(serializers.ModelSerializer):
@@ -151,8 +169,9 @@ class GrowthSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
+    creator = CreatorSerializer(many=False)
 
     class Meta:
         model = Growth
-        fields = ('id', 'human', 'age', 'height', 'weight', 'length', 'date', 'notes')
+        fields = ('id', 'creator', 'human', 'age', 'height', 'weight', 'length', 'date', 'notes')
         depth = 1

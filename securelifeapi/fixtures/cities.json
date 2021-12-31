@@ -3,40 +3,45 @@
         "model": "securelifeapi.city",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "name": "Chattanooga",
-            "state": 1
+            "state": "TN"
         }
     },
     {
         "model": "securelifeapi.city",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "name": "Nashville",
-            "state": 1
+            "state": "TN"
         }
     },
     {
         "model": "securelifeapi.city",
         "pk": 3,
         "fields": {
+            "creator": 1,
             "name": "Conneaut Lake",
-            "state": 2
+            "state": "PA"
         }
     },
     {
         "model": "securelifeapi.city",
         "pk": 4,
         "fields": {
+            "creator": 1,
             "name": "Kanab",
-            "state": 3
+            "state": "UT"
         }
     },
     {
         "model": "securelifeapi.city",
         "pk": 5,
         "fields": {
+            "creator": 1,
             "name": "Destin",
-            "state": 4
+            "state": "FL"
         }
     }
 ]

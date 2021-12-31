@@ -1,3 +1,2 @@
-SELECT *
-FROM securelifeapi_growth as g
-WHERE g.human_id = 3
+DELETE 
+FROM securelifeapi_growthimage

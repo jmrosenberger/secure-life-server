@@ -3,11 +3,14 @@
         "model": "securelifeapi.growth",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "human": 1,
+            "age": 38,
             "height": 74,
             "weight": 285,
             "length": 0,
-            "date": "2021-11-27"
+            "date": "2021-11-27",
+            "notes": "Need to lose weight."
         }
     }
 ]
