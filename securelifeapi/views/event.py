@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Event
+from securelifeapi.models import Event, Creator
 # from django.contrib.auth import get_user_model
 
 
@@ -20,7 +20,7 @@ class EventView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        # image = Image.objects.get(pk=request.data["imageId"])
+        creator = Creator.objects.get(user=request.auth.user)
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
 
@@ -32,6 +32,7 @@ class EventView(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             event = Event.objects.create(
+                creator=creator,
                 title=request.data["title"],
                 date=request.data["date"],
                 notes=request.data["notes"],
@@ -71,11 +72,13 @@ class EventView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
+        creator = Creator.objects.get(user=request.auth.user)
 
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Event, get the Event record
         # from the database whose primary key is `pk`
         event = Event.objects.get(pk=pk)
+        event.creator = creator
         event.title = request.data["title"]
         event.date = request.data["date"]
         event.notes = request.data["notes"]
@@ -110,7 +113,7 @@ class EventView(ViewSet):
             Response -- JSON serialized list of events
         """
         # Get all event records from the database
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
 
         # Support filtering games by type
         #    http://localhost:8000/events?year=1
@@ -119,12 +122,22 @@ class EventView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        event = Event.objects.order_by('date')
+        event = Event.objects.filter(creator=creator).order_by('date')
 
         serializer = EventSerializer(
             event, many=True, context={'request': request})
         return Response(serializer.data)
 
+class CreatorSerializer(serializers.ModelSerializer):
+    """JSON serializer for creator
+
+    Arguments:
+        serializer type
+    """
+
+    class Meta:
+        model = Creator
+        fields = ['id']
 
 class EventSerializer(serializers.ModelSerializer):
     """JSON serializer for events
@@ -132,8 +145,9 @@ class EventSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
+    creator = CreatorSerializer(many=False)
 
     class Meta:
         model = Event
-        fields = ('id', 'title', 'date', 'notes')
+        fields = ('id', 'creator', 'title', 'date', 'notes')
         depth = 1

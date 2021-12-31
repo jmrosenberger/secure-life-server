@@ -1,0 +1,23 @@
+[
+    {
+        "model": "securelifeapi.creator",
+        "pk": 1,
+        "fields": {
+            "user": 1
+        }
+    },
+    {
+        "model": "securelifeapi.creator",
+        "pk": 2,
+        "fields": {
+            "user": 2
+        }
+    },
+    {
+        "model": "securelifeapi.creator",
+        "pk": 3,
+        "fields": {
+            "user": 3
+        }
+    }
+]

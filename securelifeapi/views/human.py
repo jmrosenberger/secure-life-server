@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Human
+from securelifeapi.models import Human, Creator
 # from django.contrib.auth import get_user_model
 
 class HumanView(ViewSet):
@@ -19,7 +19,7 @@ class HumanView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # # image = Image.objects.get(pk=request.data["imageId"])
 
         # Use the Django ORM to get the record from the database
@@ -35,6 +35,7 @@ class HumanView(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             human = Human.objects.create(
+                creator=creator,
                 name=request.data["name"]
             )
             serializer = HumanSerializer(human, context={'request': request})
@@ -72,12 +73,13 @@ class HumanView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
         human = Human.objects.get(pk=pk)
+        human.creator = creator
         human.name = request.data["name"]
         human.save()
 
@@ -110,7 +112,7 @@ class HumanView(ViewSet):
             Response -- JSON serialized list of humans
         """
         # Get all adventure records from the database
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # adventure = Adventure.objects.annotate(event_count=Count('events'))
 
 
@@ -121,12 +123,21 @@ class HumanView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        human = Human.objects.all()
+        human = Human.objects.filter(creator=creator)
 
         serializer = HumanSerializer(
             human, many=True, context={'request': request})
         return Response(serializer.data)
+class CreatorSerializer(serializers.ModelSerializer):
+    """JSON serializer for creator
 
+    Arguments:
+        serializer type
+    """
+
+    class Meta:
+        model = Creator
+        fields = ['id']
 
 class HumanSerializer(serializers.ModelSerializer):
     """JSON serializer for humans
@@ -134,7 +145,9 @@ class HumanSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
+    creator = CreatorSerializer(many=False)
+
     class Meta:
         model = Human
-        fields = ('id', 'name')
+        fields = ('id', 'creator', 'name')
         depth = 1

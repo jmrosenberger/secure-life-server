@@ -3,7 +3,9 @@
         "model": "securelifeapi.location",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "city": "Tucson",
+            "state": "AZ",
             "park": "Grand Canyon National Park"
         }
     },
@@ -11,7 +13,9 @@
         "model": "securelifeapi.location",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "city": "Zion",
+            "state": "UT",
             "park": "Zion National Park"
         }
     },
@@ -19,7 +23,9 @@
         "model": "securelifeapi.location",
         "pk": 3,
         "fields": {
+            "creator": 1,
             "city": "Somewhere",
+            "state": "UT",
             "park": "Bryce Canyon National Park"
         }
     },
@@ -27,7 +33,9 @@
         "model": "securelifeapi.location",
         "pk": 4,
         "fields": {
+            "creator": 1,
             "city": "Destin",
+            "state": "FL",
             "park": "Ocean"
         }
     }

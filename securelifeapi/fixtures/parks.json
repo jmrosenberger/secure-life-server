@@ -3,24 +3,27 @@
         "model": "securelifeapi.park",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "name": "Zion National Park",
-            "state": 3
+            "state": "UT"
         }
     },
     {
         "model": "securelifeapi.park",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "name": "Bryce Canyon National Park",
-            "state": 3
+            "state": "UT"
         }
     },
     {
         "model": "securelifeapi.park",
         "pk": 3,
         "fields": {
+            "creator": 1,
             "name": "Grand Canyon National Park",
-            "state": 5
+            "state": "AZ"
         }
     }
 ]

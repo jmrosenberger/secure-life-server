@@ -2,6 +2,7 @@ from django.db import models
 # from django.db.models.deletion import CASCADE
 
 class Growth(models.Model):
+    creator = models.ForeignKey('Creator', on_delete=models.CASCADE)
     human = models.ForeignKey("Human", related_name='growth', on_delete=models.CASCADE)
     age=models.IntegerField()
     height = models.IntegerField()

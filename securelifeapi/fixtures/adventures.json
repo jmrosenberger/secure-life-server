@@ -3,9 +3,11 @@
         "model": "securelifeapi.adventure",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "title": "2020 Trip Out West",
             "participants": [1],
             "date": "2020-03-02",
+            "location": 1,
             "description": "Our trip out west lasted 5 days, and was spent at the Grand Canyon, Bryce Canyon, and Zion National Park."
         }
     },
@@ -13,9 +15,11 @@
         "model": "securelifeapi.adventure",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "title": "2021 Family Trip to Florida",
             "participants": [1],
             "date": "2021-05-21",
+            "location": 1,
             "description": "Took a trip to Destin, Fl with my parents. Spent 4 days there, kayaking to the natural springs was the best part."
         }
     }

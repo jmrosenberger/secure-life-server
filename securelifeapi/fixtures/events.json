@@ -3,6 +3,7 @@
         "model": "securelifeapi.event",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "title": "Katies first Christmas - 2021",
             "date": "2021-12-25",
             "notes": "Spent Christmas in Chattanooga. Her uncle Jayme got her a sword."

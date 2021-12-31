@@ -3,6 +3,7 @@
         "model": "securelifeapi.placesvisited",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "adventure": 1,
             "location": 1
         }
@@ -11,6 +12,7 @@
         "model": "securelifeapi.placesvisited",
         "pk": 2,
         "fields": {
+            "creator": 1,
             "adventure": 1,
             "location": 2
         }
@@ -19,6 +21,7 @@
         "model": "securelifeapi.placesvisited",
         "pk": 3,
         "fields": {
+            "creator": 1,
             "adventure": 1,
             "location": 3
         }
@@ -27,6 +30,7 @@
         "model": "securelifeapi.placesvisited",
         "pk": 4,
         "fields": {
+            "creator": 1,
             "adventure": 2,
             "location": 4
         }

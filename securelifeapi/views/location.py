@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Location
+from securelifeapi.models import Location, Creator
 
 class LocationView(ViewSet):
     """SecureLife"""
@@ -20,6 +20,8 @@ class LocationView(ViewSet):
         # Uses the token passed in the `Authorization` header
         # human = Human.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
+        
+        creator = Creator.objects.get(user=request.auth.user)
 
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
@@ -34,6 +36,8 @@ class LocationView(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             location = Location.objects.create(
+                creator=creator,
+                state=request.data["state"],
                 city=request.data["city"],
                 park=request.data["park"]
             )
@@ -72,12 +76,14 @@ class LocationView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # image = Image.objects.get(pk=request.data["imageId"])
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of location, get the location record
         # from the database whose primary key is `pk`
         location = Location.objects.get(pk=pk)
+        location.creator = creator
+        location.state = request.data["state"]
         location.city = request.data["city"]
         location.park = request.data["park"]
         location.save()
@@ -111,7 +117,7 @@ class LocationView(ViewSet):
             Response -- JSON serialized list of locations
         """
         # Get all location records from the database
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
 
 
         # Support filtering locations by type
@@ -121,11 +127,22 @@ class LocationView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        location = Location.objects.order_by('park')
+        location = Location.objects.filter(creator=creator).order_by('park')
 
         serializer = LocationSerializer(
             location, many=True, context={'request': request})
         return Response(serializer.data)
+    
+class CreatorSerializer(serializers.ModelSerializer):
+    """JSON serializer for creator
+
+    Arguments:
+        serializer type
+    """
+
+    class Meta:
+        model = Creator
+        fields = ['id']
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -134,7 +151,9 @@ class LocationSerializer(serializers.ModelSerializer):
     Arguments:
         serializer type
     """
+    creator = CreatorSerializer(many=False)
+    
     class Meta:
         model = Location
-        fields = ('id', 'city', 'park', 'is_visited')
+        fields = ('id', 'creator', 'city', 'state', 'park', 'is_visited')
         depth = 1

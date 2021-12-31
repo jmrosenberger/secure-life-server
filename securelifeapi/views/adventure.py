@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from securelifeapi.models import Adventure, Human, Location
+from securelifeapi.models import Adventure, Human, Location, Creator
 # from securelifeapi.views.location import LocationSerializer
 # from django.contrib.auth import get_user_model
 
@@ -21,7 +21,7 @@ class AdventureView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        # image = Image.objects.get(pk=request.data["imageId"])
+        creator = Creator.objects.get(user=request.auth.user)
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
         # `gameTypeId` in the body of the request.
@@ -38,6 +38,7 @@ class AdventureView(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             adventure = Adventure.objects.create(
+                creator=creator,
                 title=request.data["title"],
                 date=request.data["date"],
                 location=location,
@@ -45,7 +46,7 @@ class AdventureView(ViewSet):
             )
             # adventure.location.set(request.data["location"])
             adventure.participants.set(request.data["participants"])
-            #needs to be the array that is passed in from the front end
+            # needs to be the array that is passed in from the front end
             serializer = AdventureSerializer(
                 adventure, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -81,12 +82,13 @@ class AdventureView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-
+        creator = Creator.objects.get(user=request.auth.user)
         location = Location.objects.get(pk=request.data['location'])
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Game, get the game record
         # from the database whose primary key is `pk`
         adventure = Adventure.objects.get(pk=pk)
+        adventure.creator = creator
         adventure.title = request.data["title"]
         adventure.date = request.data["date"]
         adventure.location = location
@@ -123,7 +125,7 @@ class AdventureView(ViewSet):
             Response -- JSON serialized list of adventures
         """
         # Get all adventure records from the database
-        # human = Human.objects.get(user=request.auth.user)
+        creator = Creator.objects.get(user=request.auth.user)
         # adventure = Adventure.objects.annotate(event_count=Count('events'))
 
         # Support filtering games by type
@@ -133,35 +135,60 @@ class AdventureView(ViewSet):
         # game_type = self.request.query_params.get('type', None)
         # if game_type is not None:
         #     games = games.filter(game_type__id=game_type)
-        adventure = Adventure.objects.order_by('date')
+        adventure = Adventure.objects.filter(creator=creator).order_by('date')
 
         serializer = AdventureSerializer(
             adventure, many=True, context={'request': request})
         return Response(serializer.data)
 
+
 class HumanSerializer(serializers.ModelSerializer):
+    """JSON serializer for humans
+
+    Arguments:
+        serializer type
+    """
 
     class Meta:
         model = Human
         fields = ['id', 'name']
-        
+
+class CreatorSerializer(serializers.ModelSerializer):
+    """JSON serializer for creator
+
+    Arguments:
+        serializer type
+    """
+
+    class Meta:
+        model = Creator
+        fields = ['id']
+
+
 class LocationSerializer(serializers.ModelSerializer):
+    """JSON serializer for locations
+
+    Arguments:
+        serializer type
+    """
 
     class Meta:
         model = Location
-        fields = ['id', 'city', 'park', 'is_visited']
+        fields = ['id', 'city', 'state', 'park', 'is_visited']
 
 
 class AdventureSerializer(serializers.ModelSerializer):
-    """JSON serializer for games
+    """JSON serializer for adventures
 
     Arguments:
         serializer type
     """
     participants = HumanSerializer(many=True)
     location = LocationSerializer(many=False)
+    creator = CreatorSerializer(many=False)
 
     class Meta:
         model = Adventure
-        fields = ('id', 'title', 'location', 'participants', 'date', 'description')
+        fields = ('id', 'creator', 'title', 'location',
+                  'participants', 'date', 'description')
         depth = 1

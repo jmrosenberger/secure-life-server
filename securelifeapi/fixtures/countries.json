@@ -3,6 +3,7 @@
         "model": "securelifeapi.country",
         "pk": 1,
         "fields": {
+            "creator": 1,
             "name": "United States"
         }
     }
