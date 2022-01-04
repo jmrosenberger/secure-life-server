@@ -3,6 +3,7 @@ from securelifeapi.models import Adventure, City, Country, Growth, Human, Image,
 from securelifeapi.models.growth_image import GrowthImage
 from securelifeapi.models.event_image import EventImage
 from securelifeapi.models.creator import Creator
+from securelifeapi.models.human_image import HumanImage
 
 # Register your models here.
 
@@ -23,4 +24,6 @@ admin.site.register(Participant)
 admin.site.register(Event)
 admin.site.register(EventImage)
 admin.site.register(Creator)
+admin.site.register(HumanImage)
+
 

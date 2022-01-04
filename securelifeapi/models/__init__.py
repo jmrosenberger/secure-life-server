@@ -15,4 +15,6 @@ from .growth_image import GrowthImage
 from .event import Event
 from .event_image import EventImage
 from .creator import Creator
+from .human_image import HumanImage
+
 
