@@ -1,0 +1,1 @@
+web: gunicorn securelife.wsgi --log-file -
