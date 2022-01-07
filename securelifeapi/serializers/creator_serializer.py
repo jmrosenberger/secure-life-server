@@ -24,6 +24,6 @@ class CreatorSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Creator
-        fields = ('user')
+        fields = ('id', 'user')
         depth = 1
         

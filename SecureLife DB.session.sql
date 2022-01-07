@@ -1,2 +1,2 @@
-DELETE 
-FROM securelifeapi_
+SELECT *
+FROM auth_user
